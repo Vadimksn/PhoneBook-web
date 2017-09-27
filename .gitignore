@@ -1,8 +1,4 @@
 ### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-/target
-out
-gen
+/.idea/
+/target/
+/PhoneBook-web.iml
