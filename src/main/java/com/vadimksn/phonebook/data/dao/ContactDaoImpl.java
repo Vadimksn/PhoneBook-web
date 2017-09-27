@@ -22,7 +22,7 @@ public class ContactDaoImpl implements ContactDao<Contact> {
     public void addContact(Contact contact) {
         jdbcTemplate.update("BEGIN;" +
                         "INSERT INTO phone_book.contacts (name, address) VALUES (?,?);" +
-                        "INSERT INTO phone_book.phones (contact_id, phone) VALUES (LAST_INSERT_ID(), ?);" +
+                        "INSERT INTO phone_book.phones (contact_id, phone_number) VALUES (LAST_INSERT_ID(), ?);" +
                         "COMMIT;",
                 contact.getName(), contact.getAddress(), contact.getNewPhoneNumber());
     }
@@ -32,7 +32,7 @@ public class ContactDaoImpl implements ContactDao<Contact> {
         jdbcTemplate.update("BEGIN;" +
                         "UPDATE phone_book.contacts SET address=? WHERE name=?;" +
                         "SET @contactId = (Select id FROM phone_book.contacts WHERE name=?);" +
-                        "INSERT INTO phone_book.phones (contact_id, phone) VALUES (@contactId, ?);" +
+                        "INSERT INTO phone_book.phones (contact_id, phone_number) VALUES (@contactId, ?);" +
                         "COMMIT;",
                 contact.getAddress(), contact.getName(), contact.getName(), contact.getNewPhoneNumber());
     }
@@ -48,8 +48,17 @@ public class ContactDaoImpl implements ContactDao<Contact> {
     }
 
     @Override
-    public Contact findContact(int contactId) {
+    public Contact findContactById(int contactId) {
         return null;
+    }
+
+    @Override
+    public boolean isExistContact(Contact contact) {
+        boolean exist = false;
+        int count = jdbcTemplate.queryForObject("select count(*) from phone_book.contacts where name=?",
+                new Object[]{contact.getName()}, Integer.class);
+        if (count == 1) exist = true;
+        return exist;
     }
 
     @Override

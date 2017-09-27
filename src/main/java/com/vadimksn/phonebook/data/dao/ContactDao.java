@@ -11,7 +11,9 @@ public interface ContactDao<EntityModel> {
 
     void deleteContact(EntityModel entityModel);
 
-    EntityModel findContact(int contactId);
+    EntityModel findContactById(int contactId);
+
+    boolean isExistContact(EntityModel entityModel);
 
     List<EntityModel> getListAllContacts();
 }

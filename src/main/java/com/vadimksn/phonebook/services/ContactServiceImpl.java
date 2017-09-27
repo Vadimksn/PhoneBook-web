@@ -7,14 +7,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.vadimksn.phonebook.utils.ValidationUtils.validateContact;
+
 @Service("contactService")
 public class ContactServiceImpl implements ContactService<Contact> {
 
     @Autowired
-    ContactDao contactDao;
+    ContactDao<Contact> contactDao;
 
     @Override
     public void addContact(Contact contact) {
+        validateContact(contact);
         contactDao.addContact(contact);
     }
 
@@ -25,6 +28,7 @@ public class ContactServiceImpl implements ContactService<Contact> {
 
     @Override
     public void updateAddressAddPhone(Contact contact) {
+        validateContact(contact);
         contactDao.updateAddressAddPhone(contact);
     }
 
@@ -34,8 +38,13 @@ public class ContactServiceImpl implements ContactService<Contact> {
     }
 
     @Override
-    public Contact findContact(int contactId) {
-        return (Contact) contactDao.findContact(contactId);
+    public Contact findContactById(int contactId) {
+        return contactDao.findContactById(contactId);
+    }
+
+    @Override
+    public boolean isExistContact(Contact contact) {
+        return contactDao.isExistContact(contact);
     }
 
     @Override
