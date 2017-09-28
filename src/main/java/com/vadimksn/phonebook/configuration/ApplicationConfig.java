@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(basePackages = "com.vadimksn.phonebook")
-@PropertySource(value = { "classpath:application.properties" })
+@PropertySource(value = {"classpath:application.properties"})
 public class ApplicationConfig {
     @Autowired
     private Environment env;

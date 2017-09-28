@@ -7,18 +7,19 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-@Qualifier("contactDao")
+@Repository("contactDao")
 public class ContactDaoImpl implements ContactDao<Contact> {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Override
+    @Transactional
     public Contact addContact(Contact contact) {
         jdbcTemplate.update("BEGIN;" +
                         "INSERT INTO phone_book.contacts (name, address) VALUES (?,?);" +
@@ -29,6 +30,7 @@ public class ContactDaoImpl implements ContactDao<Contact> {
     }
 
     @Override
+    @Transactional
     public Contact updateAddressAddPhone(Contact contact) {
         jdbcTemplate.update("BEGIN;" +
                         "UPDATE phone_book.contacts SET address=? WHERE name=?;" +
@@ -76,7 +78,6 @@ public class ContactDaoImpl implements ContactDao<Contact> {
                     contact.getPhoneNumbers().add(phoneNumber);
                 }
             }
-
         }
         return contactList;
     }

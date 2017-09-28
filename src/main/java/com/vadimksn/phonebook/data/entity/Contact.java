@@ -28,7 +28,12 @@ public class Contact extends EntityModel {
         this.phoneNumbers = phoneNumbers;
     }
 
-
+    public Contact(String name, String address, String newPhoneNumber, List<PhoneNumber> phoneNumbers) {
+        this.name = name;
+        this.address = address;
+        this.newPhoneNumber = newPhoneNumber;
+        this.phoneNumbers = phoneNumbers;
+    }
 
     public String getName() {
         return name;
