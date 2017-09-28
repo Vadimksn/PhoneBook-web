@@ -27,7 +27,7 @@ public class ValidationUtils {
 
     private static void validateName(String name) {
         nullValidator(name);
-        if (StringUtils.length(name) < 4) {
+        if (StringUtils.length(name) < 2) {
             throw new BadRequestException(ErrorReason.NAME_IS_LESS_THAN_2, name);
         }else if (StringUtils.length(name) > 20) {
             throw new BadRequestException(ErrorReason.NAME_IS_MORE_THAN_20, name);

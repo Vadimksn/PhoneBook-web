@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.vadimksn.phonebook.utils.ValidationUtils.validateContact;
+
 @RestController
-@RequestMapping("/phoneBook")
+@RequestMapping("/contacts")
 public class PhoneBookController {
 
     @Autowired
@@ -23,9 +25,12 @@ public class PhoneBookController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void addContact(@RequestBody Contact contact) {
-        if (!contactService.isExistContact(contact)) {
-            contactService.addContact(contact);
-        } else contactService.updateAddressAddPhone(contact);
+    public Contact addContact(@RequestBody Contact contact) {
+        validateContact(contact);
+        if (contactService.isExistContact(contact)) {
+            return contactService.updateAddressAddPhone(contact);
+        } else {
+            return contactService.addContact(contact);
+        }
     }
 }

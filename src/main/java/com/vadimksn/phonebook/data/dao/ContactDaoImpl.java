@@ -19,22 +19,24 @@ public class ContactDaoImpl implements ContactDao<Contact> {
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public void addContact(Contact contact) {
+    public Contact addContact(Contact contact) {
         jdbcTemplate.update("BEGIN;" +
                         "INSERT INTO phone_book.contacts (name, address) VALUES (?,?);" +
                         "INSERT INTO phone_book.phones (contact_id, phone_number) VALUES (LAST_INSERT_ID(), ?);" +
                         "COMMIT;",
                 contact.getName(), contact.getAddress(), contact.getNewPhoneNumber());
+        return contact;
     }
 
     @Override
-    public void updateAddressAddPhone(Contact contact) {
+    public Contact updateAddressAddPhone(Contact contact) {
         jdbcTemplate.update("BEGIN;" +
                         "UPDATE phone_book.contacts SET address=? WHERE name=?;" +
                         "SET @contactId = (Select id FROM phone_book.contacts WHERE name=?);" +
                         "INSERT INTO phone_book.phones (contact_id, phone_number) VALUES (@contactId, ?);" +
                         "COMMIT;",
                 contact.getAddress(), contact.getName(), contact.getName(), contact.getNewPhoneNumber());
+        return contact;
     }
 
     @Override
