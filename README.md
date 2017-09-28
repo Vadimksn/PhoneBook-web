@@ -1,4 +1,4 @@
-# Phone Book Web
+# Phone Book Web by Vadimksn
 
 ### Used:
 * Spring Boot
@@ -36,14 +36,13 @@ CREATE TABLE `phones` (
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8
 ```
 
-[1]: src\main\resources\assets\startPage.jpg
-[2]: src\main\resources\assets\allContacts.jpg
-[3]: src\main\resources\assets\filterContact.jpg
-[4]: src\main\resources\assets\addContact.jpg
+[1]: src/main/resources/assets/startPage.jpg
+[2]: src/main/resources/assets/allContacts.jpg
+[3]: src/main/resources/assets/filterContact.jpg
+[4]: src/main/resources/assets/addContact.jpg
 
 #### Main page:
 ![Alt text][1]
-
 
 #### All contacts page:
 ![Alt text][2]
