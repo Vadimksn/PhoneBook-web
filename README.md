@@ -6,6 +6,7 @@
 * Maven
 * MySQL
 * JavaScript and JQuery
+* Junit
 
 ### Before run: 
 * Install Java
