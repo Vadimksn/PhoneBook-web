@@ -36,13 +36,14 @@ CREATE TABLE `phones` (
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8
 ```
 
-[1]: PhoneBook-web\src\main\resources\assets\startPage.png
-[2]: PhoneBook-web\src\main\resources\assets\allContacts.png
-[3]: PhoneBook-web\src\main\resources\assets\filterContact.png
-[4]: PhoneBook-web\src\main\resources\assets\addContact.png
+[1]: src\main\resources\assets\startPage.jpg
+[2]: src\main\resources\assets\allContacts.jpg
+[3]: src\main\resources\assets\filterContact.jpg
+[4]: src\main\resources\assets\addContact.jpg
 
 #### Main page:
 ![Alt text][1]
+
 
 #### All contacts page:
 ![Alt text][2]
