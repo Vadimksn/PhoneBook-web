@@ -2,5 +2,3 @@
 /.idea/
 /target/
 /PhoneBook-web.iml
-
-/src/main/java/com/vadimksn/phonebook/Test.java

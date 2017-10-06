@@ -28,9 +28,9 @@ public class TestContactDaoImpl {
         contact1 = new Contact(1, "First", "1st address", "1111111111", Arrays.asList(
                 new PhoneNumber(1, "1111111112"), new PhoneNumber(1, "1111111113"), new PhoneNumber(1, "1111111114")));
         contact2 = new Contact(2, "Second", "2nd address", "2222222222", Arrays.asList(
-                new PhoneNumber(2, "2222222222"), new PhoneNumber(2, "2222222222"), new PhoneNumber(2, "2222222222")));
+                new PhoneNumber(2, "2222222222"), new PhoneNumber(2, "2222222222")));
         when(mockedContactDao.getListAllContacts()).thenReturn(Arrays.asList(contact1, contact2));
-        when(mockedContactDao.addContact(contact1)).thenReturn(contact1);
+        when(mockedContactDao.addContact(contact2)).thenReturn(contact2);
         when(mockedContactDao.updateAddressAddPhone(contact1)).thenReturn(contact1);
         when(mockedContactDao.isExistContact(contact1)).thenReturn(true);
     }
@@ -54,17 +54,17 @@ public class TestContactDaoImpl {
 
     @Test
     public void testAddContact() {
-        Contact myContact = mockedContactDao.addContact(contact1);
+        Contact myContact = mockedContactDao.addContact(contact2);
         assertNotNull(myContact);
-        assertEquals(1, myContact.getId());
-        assertEquals("First", myContact.getName());
-        assertEquals("1st address", myContact.getAddress());
-        assertEquals("1111111111", myContact.getNewPhoneNumber());
-        assertEquals(3, myContact.getPhoneNumbers().size());
+        assertEquals(2, myContact.getId());
+        assertEquals("Second", myContact.getName());
+        assertEquals("2nd address", myContact.getAddress());
+        assertEquals("2222222222", myContact.getNewPhoneNumber());
+        assertEquals(2, myContact.getPhoneNumbers().size());
     }
 
     @Test
-    public void testUpdateAddressAddPhone(){
+    public void testUpdateAddressAddPhone() {
         Contact myContact = mockedContactDao.updateAddressAddPhone(contact1);
         assertNotNull(myContact);
         assertEquals(1, myContact.getId());
@@ -73,6 +73,4 @@ public class TestContactDaoImpl {
         assertEquals("1111111111", myContact.getNewPhoneNumber());
         assertEquals(3, myContact.getPhoneNumbers().size());
     }
-
-
 }

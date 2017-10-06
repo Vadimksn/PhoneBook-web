@@ -32,10 +32,9 @@ public class Contact extends EntityModel {
         this.phoneNumbers = phoneNumbers;
     }
 
-    public Contact(String name, String address, String newPhoneNumber, List<PhoneNumber> phoneNumbers) {
+    public Contact(String name, String address, List<PhoneNumber> phoneNumbers) {
         this.name = name;
         this.address = address;
-        this.newPhoneNumber = newPhoneNumber;
         this.phoneNumbers = phoneNumbers;
     }
 
