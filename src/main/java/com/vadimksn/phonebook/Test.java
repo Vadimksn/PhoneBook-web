@@ -17,7 +17,9 @@ public class Test {
 //        for (Contact contact : contactList) {
 //            System.out.println(contact);
 //        }
-        Contact contact = new Contact("Vadym","SDASDADS","13213156");
-        System.out.println(contactService.isExistContact(contact));
+        Contact contact = new Contact("Tim Cook","SDASDADS","13213156");
+        System.out.println(contact);
+        System.out.println(contactDao.isExistContact(contact));
+        System.out.println(contact);
     }
 }

@@ -19,23 +19,8 @@ public class ContactServiceImpl implements ContactService<Contact> {
     }
 
     @Override
-    public void editContact(Contact contact, int contactId) {
-        contactDao.editContact(contact, contactId);
-    }
-
-    @Override
     public Contact updateAddressAddPhone(Contact contact) {
         return contactDao.updateAddressAddPhone(contact);
-    }
-
-    @Override
-    public void deleteContact(Contact contact) {
-        contactDao.deleteContact(contact);
-    }
-
-    @Override
-    public Contact findContactById(int contactId) {
-        return contactDao.findContactById(contactId);
     }
 
     @Override

@@ -1,7 +1,13 @@
 package com.vadimksn.phonebook.data.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class Contact extends EntityModel {
     private String name;
     private String address;
@@ -11,20 +17,18 @@ public class Contact extends EntityModel {
     public Contact() {
     }
 
-    public Contact(String name, String address) {
-        this.name = name;
-        this.address = address;
-    }
-
     public Contact(String name, String address, String newPhoneNumber) {
         this.name = name;
         this.address = address;
         this.newPhoneNumber = newPhoneNumber;
     }
 
-    public Contact(String name, String address, List<PhoneNumber> phoneNumbers) {
+
+    public Contact(int id, String name, String address, String newPhoneNumber, List<PhoneNumber> phoneNumbers) {
+        this.id = id;
         this.name = name;
         this.address = address;
+        this.newPhoneNumber = newPhoneNumber;
         this.phoneNumbers = phoneNumbers;
     }
 
@@ -35,36 +39,12 @@ public class Contact extends EntityModel {
         this.phoneNumbers = phoneNumbers;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public List<PhoneNumber> getPhoneNumbers() {
-        return phoneNumbers;
-    }
-
-    public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
-        this.phoneNumbers = phoneNumbers;
-    }
-
-    public String getNewPhoneNumber() {
-        return newPhoneNumber;
-    }
-
-    public void setNewPhoneNumber(String newPhoneNumber) {
-        this.newPhoneNumber = newPhoneNumber;
+    public void setPhoneNumbers(int id, String[] phoneNumbers) {
+        List<PhoneNumber> phoneNumberList = new ArrayList<>();
+        for (String phone : phoneNumbers) {
+            phoneNumberList.add(new PhoneNumber(id, phone));
+        }
+        this.phoneNumbers = phoneNumberList;
     }
 
     @Override
