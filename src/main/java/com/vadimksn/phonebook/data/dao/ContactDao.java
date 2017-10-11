@@ -10,4 +10,6 @@ public interface ContactDao<EntityModel> {
     EntityModel updateAddressAddPhone(EntityModel entityModel);
 
     List<EntityModel> getListAllContacts();
+
+    List<EntityModel> getListContactsFilteredByString(String s);
 }

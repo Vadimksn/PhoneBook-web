@@ -55,22 +55,35 @@ $(document).ready(function () {
     }
 
     contactFilter.on('keyup', function (event) {
+        console.log(event.target.value);
         filterContacts(event.target.value);
     });
 
     function filterContacts(value) {
         document.querySelector('.phone-book-list').innerHTML = '';
-        var filteredContacts = contacts.filter(function (contact) {
-            // Condition for filtering contacts
-            var phones = getPhoneNumbers(contact);
-            var filterCondition = ~contact.name.indexOf(value) || ~contact.address.indexOf(value) || ~phones.indexOf(value);
-            return filterCondition;
-        });
-        // Re-rendering contact list after filtering
-        filteredContacts.forEach(function (contact) {
-            generateContactItem(contact);
-        })
+        getAllValidateContacts(value);
     }
 
+    function getAllValidateContacts(parameter) {
+        var requestData = {
+            "string": parameter
+        };
+
+        $.ajax({
+            type: 'GET',
+            url: getBaseUrl() + '/contacts/validate',
+            data: requestData,
+            success: function (data) {
+                console.log(data);
+                contacts = data;
+                contacts.forEach(function (contact) {
+                    generateContactItem(contact);
+                })
+            },
+            error: function (xhr, str) {
+                console.log(xhr);
+            }
+        });
+    }
 });
 

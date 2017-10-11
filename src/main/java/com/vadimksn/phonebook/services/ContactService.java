@@ -11,4 +11,7 @@ public interface ContactService<EntityModel> {
     boolean isExistContact(EntityModel entityModel);
 
     List<EntityModel> getListAllContacts();
+
+    List<EntityModel> getListContactsFilteredByString(String s);
+
 }

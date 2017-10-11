@@ -1,24 +1,15 @@
 package com.vadimksn.phonebook.utils;
 
 import com.vadimksn.phonebook.data.entity.Contact;
-import com.vadimksn.phonebook.data.entity.PhoneNumber;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Component
 public class FilterContactListUtils {
-
-    public static List filter(String s, List<Contact> list) {
-        List<Contact> filteredList = new ArrayList<>();
-        for (Contact contact : list) {
-            String row = contact.getName() + " " + contact.getAddress();
-            for (PhoneNumber phoneNumber : contact.getPhoneNumbers()) {
-                row = row + phoneNumber.getPhoneNumber();
-            }
-            if (row.toLowerCase().contains(s.toLowerCase())) {
-                filteredList.add(contact);
-            }
-        }
-        return filteredList;
+    public List<Contact> filter(String str, List<Contact> list) {
+        return list.stream().filter(contact -> contact.toStringForFilter().toLowerCase().contains(
+                str.toLowerCase())).collect(Collectors.toList());
     }
 }

@@ -32,4 +32,9 @@ public class ContactServiceImpl implements ContactService<Contact> {
     public List<Contact> getListAllContacts() {
         return contactDao.getListAllContacts();
     }
+
+    @Override
+    public List<Contact> getListContactsFilteredByString(String s) {
+        return contactDao.getListContactsFilteredByString(s);
+    }
 }

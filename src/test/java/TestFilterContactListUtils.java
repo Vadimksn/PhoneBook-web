@@ -1,4 +1,3 @@
-import com.vadimksn.phonebook.data.dao.ContactDaoImpl;
 import com.vadimksn.phonebook.data.entity.Contact;
 import com.vadimksn.phonebook.data.entity.PhoneNumber;
 import com.vadimksn.phonebook.utils.FilterContactListUtils;
@@ -9,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,36 +18,66 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class TestFilterContactListUtils {
     @Mock
-    private static ContactDaoImpl mockedContactDao;
-    private static Contact contact1;
-    private static Contact contact2;
-    private static Contact contact3;
-    private static Contact contact4;
-    private static Contact contact5;
+    private FilterContactListUtils mockFilterContactListUtils;
+    private final String STR1 = "smith";
+    private final String STR2 = "OLOLO";
+    private final String STR3 = "1";
+    private final String STR4 = "gaLYna";
+    private final String STR5 = "strEEt";
+    private final Contact CONTACT_1 = Contact.builder()
+            .name("Bob Smith").address("Baker street").phoneNumbers(Arrays.asList(
+                    PhoneNumber.builder().phoneNumber("1111111").build(),
+                    PhoneNumber.builder().phoneNumber("2222").build(),
+                    PhoneNumber.builder().phoneNumber("3333").build())).build();
+    private final Contact CONTACT_2 = Contact.builder()
+            .name("John Smith").address("Baker street").phoneNumbers(Arrays.asList(
+                    PhoneNumber.builder().phoneNumber("1111111").build(),
+                    PhoneNumber.builder().phoneNumber("12332").build())).build();
+    private final Contact CONTACT_3 = Contact.builder()
+            .name("Lola Smith").address("Baker street").phoneNumbers(Arrays.asList(
+                    PhoneNumber.builder().phoneNumber("1111111").build(),
+                    PhoneNumber.builder().phoneNumber("777777").build())).build();
+    private final Contact CONTACT_4 = Contact.builder()
+            .name("Karas Mokryi").address("River street").phoneNumbers(Arrays.asList(
+                    PhoneNumber.builder().phoneNumber("043255555").build())).build();
+    private final Contact CONTACT_5 = Contact.builder()
+            .name("Galyna Stepanivna").address("Lenin street").phoneNumbers(Arrays.asList(
+                    PhoneNumber.builder().phoneNumber("112").build(),
+                    PhoneNumber.builder().phoneNumber("911").build())).build();
+    private final List<Contact> CONTACT_LIST = Arrays.asList(CONTACT_1, CONTACT_2, CONTACT_3, CONTACT_4, CONTACT_5);
 
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        contact1 = new Contact("Bob Smith", "Baker street", Arrays.asList(
-                new PhoneNumber("1111111"), new PhoneNumber("2222"), new PhoneNumber("3333")));
-        contact2 = new Contact("John Smith", "Baker street", Arrays.asList(
-                new PhoneNumber("1111111"), new PhoneNumber("12332")));
-        contact3 = new Contact("Lola Smith", "Baker street", Arrays.asList(
-                new PhoneNumber("1111111"), new PhoneNumber("777777")));
-        contact4 = new Contact("Karas Mokryi", "River street", Arrays.asList(
-                new PhoneNumber("043255555")));
-        contact5 = new Contact("Galyna Stepanivna", "Lenin street", Arrays.asList(
-                new PhoneNumber("112"), new PhoneNumber("911")));
-        when(mockedContactDao.getListAllContacts()).thenReturn(Arrays.asList(contact1, contact2, contact3, contact4, contact5));
+        when(mockFilterContactListUtils.filter(STR1, CONTACT_LIST)).thenReturn(Arrays.asList(CONTACT_1, CONTACT_2, CONTACT_3));
+        when(mockFilterContactListUtils.filter(STR2, CONTACT_LIST)).thenReturn(new ArrayList());
+        when(mockFilterContactListUtils.filter(STR3, CONTACT_LIST)).thenReturn(Arrays.asList(CONTACT_1, CONTACT_2, CONTACT_3, CONTACT_5));
+        when(mockFilterContactListUtils.filter(STR4, CONTACT_LIST)).thenReturn(Arrays.asList(CONTACT_5));
+        when(mockFilterContactListUtils.filter(STR5, CONTACT_LIST)).thenReturn(Arrays.asList(CONTACT_1, CONTACT_2, CONTACT_3, CONTACT_4, CONTACT_5));
     }
 
     @Test
-    public void testFilter() {
-        List list = mockedContactDao.getListAllContacts();
-        assertEquals(3, FilterContactListUtils.filter("smith", list).size());
-        assertEquals(0, FilterContactListUtils.filter("OLOLO", list).size());
-        assertEquals(4, FilterContactListUtils.filter("1", list).size());
-        assertEquals(1, FilterContactListUtils.filter("gaLYna", list).size());
-        assertEquals(5, FilterContactListUtils.filter("strEEt", list).size());
+    public void testFilter1() {
+        assertEquals(Arrays.asList(CONTACT_1, CONTACT_2, CONTACT_3), mockFilterContactListUtils.filter(STR1, CONTACT_LIST));
+    }
+
+    @Test
+    public void testFilter2() {
+        assertEquals(new ArrayList(), mockFilterContactListUtils.filter(STR2, CONTACT_LIST));
+    }
+
+    @Test
+    public void testFilter3() {
+        assertEquals(Arrays.asList(CONTACT_1, CONTACT_2, CONTACT_3, CONTACT_5), mockFilterContactListUtils.filter(STR3, CONTACT_LIST));
+    }
+
+    @Test
+    public void testFilter4() {
+        assertEquals(Arrays.asList(CONTACT_5), mockFilterContactListUtils.filter(STR4, CONTACT_LIST));
+    }
+
+    @Test
+    public void testFilter5() {
+        assertEquals(Arrays.asList(CONTACT_1, CONTACT_2, CONTACT_3, CONTACT_4, CONTACT_5), mockFilterContactListUtils.filter(STR5, CONTACT_LIST));
     }
 }
